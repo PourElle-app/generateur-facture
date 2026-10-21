@@ -14,7 +14,8 @@ body{margin:0;color:var(--ink);font:14px/1.5 Inter,system-ui,sans-serif;backgrou
 .top{display:flex;justify-content:space-between;align-items:center;padding:15px 30px;border-bottom:1px solid var(--line);background:#fff;}
 .brand{display:flex;align-items:center;font-weight:850;font-size:20px;}
 .brandmark{width:32px;height:32px;border-radius:10px;background:linear-gradient(145deg,#7258e8,#4f76ee);display:grid;place-items:center;color:#fff;font-weight:900;font-size:14px;margin-right:10px;}
-select.lang-select{padding:8px;border:1px solid var(--line);border-radius:8px;font-weight:600;cursor:pointer;background:#f8fafc;outline:none;}
+select.lang-select{padding:8px 12px;border:1px solid #c9d0e0;border-radius:8px;font-weight:600;cursor:pointer;background:#f8fafc;outline:none;font-size:14px;color:#17233b;}
+select.lang-select:hover{border-color:var(--blue);}
 .container{max-width:1000px;margin:30px auto;padding:0 20px;display:grid;grid-template-columns:1fr 1fr;gap:30px;}
 @media(max-width:800px){.container{grid-template-columns:1fr;}}
 h1{font-size:32px;letter-spacing:-1px;margin:0 0 10px;}
@@ -157,7 +158,7 @@ let items = [
 window.changeLang = function(lang) {
   currentLang = lang;
   const t = dict[lang];
-  // Mise à jour des textes
+  
   document.getElementById('t_title').textContent = t.title;
   document.getElementById('t_subtitle').textContent = t.subtitle;
   document.getElementById('t_your_info').textContent = t.your_info;
@@ -219,7 +220,6 @@ function getData() {
 
 function formatEuro(n) { 
   if(currentLang === 'en') return n.toFixed(2) + ' €';
-  if(currentLang === 'pt' || currentLang === 'es') return n.toFixed(2).replace('.', ',') + ' €';
   return n.toFixed(2).replace('.', ',') + ' €'; 
 }
 
@@ -228,7 +228,6 @@ function updatePreview() {
   const t = dict[currentLang];
   document.getElementById('previewTotal').textContent = formatEuro(data.total);
   
-  // Date formatting according to language
   const dateObj = new Date(data.invDate);
   const dateStr = dateObj.toLocaleDateString(currentLang === 'en' ? 'en-US' : currentLang);
   
@@ -336,7 +335,7 @@ window.generatePDF = async function() {
       y -= 20;
     });
 
-    // Total (Le code corrigé pour l'alignement parfait)
+    // Total (Correction de l'alignement)
     y -= 20;
     const labelTotal = t.total_pay;
     const valueTotal = formatEuro(data.total);
