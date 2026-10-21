@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Créateur de Facture Gratuit en Ligne – Modèle PDF Freelance</title>
+<meta name="description" content="Créez et téléchargez vos factures gratuitement. Modèle professionnel pour freelances et auto-entrepreneurs. Sans inscription, 100% dans votre navigateur.">
+
+<style>
+:root{--ink:#17233b;--muted:#66758b;--blue:#5b5ce2;--line:#e5e9f2;}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);font:14px/1.5 Inter,system-ui,sans-serif;background:#fff;}
+.top{display:flex;align-items:center;justify-content:center;padding:20px;font-weight:850;font-size:20px;border-bottom:1px solid var(--line);background:#fff;}
+.brandmark{width:32px;height:32px;border-radius:10px;background:linear-gradient(145deg,#7258e8,#4f76ee);display:grid;place-items:center;color:#fff;font-weight:900;font-size:14px;margin-right:10px;}
+.container{max-width:1000px;margin:30px auto;padding:0 20px;display:grid;grid-template-columns:1fr 1fr;gap:30px;}
+@media(max-width:800px){.container{grid-template-columns:1fr;}}
+h1{font-size:32px;letter-spacing:-1px;margin:0 0 10px;}
+p.subtitle{color:var(--muted);font-size:15px;margin:0 0 25px;}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px;box-shadow:0 4px 15px rgba(0,0,0,.02);}
+.card h2{font-size:16px;margin:0 0 15px;padding-bottom:10px;border-bottom:1px solid var(--line);}
+.form-group{margin-bottom:12px;display:grid;gap:4px;}
+.form-group label{font-size:12px;font-weight:700;color:#4b5a70;}
+.form-group input,.form-group textarea{width:100%;padding:9px 11px;border:1px solid #d5dbea;border-radius:8px;font:inherit;font-size:13px;resize:vertical;}
+.form-group input:focus,.form-group textarea:focus{outline:none;border-color:var(--blue);}
+.items-table{width:100%;border-collapse:collapse;margin-bottom:15px;font-size:13px;}
+.items-table th{text-align:left;padding:8px 4px;color:var(--muted);font-size:12px;border-bottom:1px solid var(--line);}
+.items-table td{padding:6px 4px;}
+.items-table input{width:100%;padding:7px;border:1px solid #d5dbea;border-radius:6px;font:inherit;font-size:12px;}
+.items-table input.num{text-align:right;}
+.total-row{display:flex;justify-content:flex-end;align-items:center;gap:20px;margin-top:15px;padding-top:15px;border-top:2px solid var(--line);font-size:16px;}
+.total-row strong{font-size:20px;color:var(--blue);}
+.primary{width:100%;padding:14px;border:0;border-radius:10px;background:linear-gradient(135deg,#635ee8,#4e5fe0);color:#fff;font-weight:800;font-size:16px;cursor:pointer;box-shadow:0 6px 15px rgba(79,87,216,.2);transition:.2s;}
+.primary:hover{transform:translateY(-2px);}
+.primary:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+.preview-box{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:20px;min-height:400px;font-family:Helvetica,Arial,sans-serif;}
+.pv-header{display:flex;justify-content:space-between;margin-bottom:30px;}
+.pv-title{font-size:24px;font-weight:bold;color:#17233b;margin:0;}
+.pv-info{font-size:12px;color:#555;line-height:1.6;}
+.pv-info strong{color:#17233b;}
+.pv-client{margin-bottom:20px;font-size:12px;}
+.pv-table{width:100%;border-collapse:collapse;margin-bottom:20px;font-size:12px;}
+.pv-table th{border-bottom:1px solid #ccc;padding:8px 4px;text-align:left;color:#555;}
+.pv-table td{padding:8px 4px;border-bottom:1px solid #eee;}
+.pv-table .text-right{text-align:right;}
+.pv-total{text-align:right;font-size:14px;font-weight:bold;margin-top:20px;}
+.pv-total span{color:var(--blue);font-size:18px;margin-left:10px;}
+</style>
+</head>
+<body>
+
+<div class="top"><div class="brandmark">F</div> FacturePro</div>
+
+<div class="container">
+  <div>
+    <h1>Créez votre facture</h1>
+    <p class="subtitle">Remplissez les champs à gauche, l'aperçu se met à jour en direct. Téléchargez en PDF à la fin.</p>
+
+    <div class="card">
+      <h2>Vos informations</h2>
+      <div class="form-group"><label>Votre Nom / Entreprise</label><input type="text" id="fromName" value="Jean Dupont" oninput="updatePreview()"></div>
+      <div class="form-group"><label>Votre Adresse</label><textarea id="fromAddress" rows="2" oninput="updatePreview()">12 rue de la Paix
+75000 Paris</textarea></div>
+      <div class="form-group"><label>Votre Email / Siret</label><input type="text" id="fromEmail" value="jean@exemple.fr" oninput="updatePreview()"></div>
+    </div>
+
+    <div class="card" style="margin-top:15px;">
+      <h2>Informations Client</h2>
+      <div class="form-group"><label>Nom du client</label><input type="text" id="toName" value="Entreprise ABC" oninput="updatePreview()"></div>
+      <div class="form-group"><label>Adresse du client</label><textarea id="toAddress" rows="2" oninput="updatePreview()">45 avenue des Champs
+75008 Paris</textarea></div>
+    </div>
+
+    <div class="card" style="margin-top:15px;">
+      <h2>Détails de la facture</h2>
+      <div class="form-group"><label>Numéro de facture</label><input type="text" id="invNumber" value="FAC-2026-001" oninput="updatePreview()"></div>
+      <div class="form-group"><label>Date</label><input type="date" id="invDate" oninput="updatePreview()"></div>
+      
+      <table class="items-table" id="itemsTable">
+        <thead>
+          <tr><th>Description</th><th width="60">Qté</th><th width="80">Prix</th><th width="30"></th></tr>
+        </thead>
+        <tbody id="itemsBody"></tbody>
+      </table>
+      <button type="button" onclick="addItem()" style="background:none;border:0;color:var(--blue);font-weight:700;cursor:pointer;font-size:12px;margin-bottom:15px;">+ Ajouter une ligne</button>
+
+      <div class="total-row">Total : <strong id="previewTotal">0,00 €</strong></div>
+    </div>
+
+    <button class="primary" id="downloadBtn" style="margin-top:20px;">Télécharger la facture en PDF</button>
+  </div>
+
+  <div>
+    <div class="preview-box" id="preview"></div>
+  </div>
+</div>
+
+<!-- Chargement de la bibliothèque PDF -->
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<script>
+document.getElementById('invDate').valueAsDate = new Date();
+
+let items = [
+  { desc: "Création de site web", qty: 1, price: 500 },
+  { desc: "Maintenance mensuelle", qty: 1, price: 50 }
+];
+
+function renderItems() {
+  const tbody = document.getElementById('itemsBody');
+  tbody.innerHTML = '';
+  items.forEach((item, index) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><input type="text" value="${item.desc}" oninput="updateItem(${index}, 'desc', this.value)"></td>
+      <td><input type="number" class="num" value="${item.qty}" min="1" oninput="updateItem(${index}, 'qty', this.value)"></td>
+      <td><input type="number" class="num" value="${item.price}" min="0" step="0.01" oninput="updateItem(${index}, 'price', this.value)"></td>
+      <td><button type="button" style="background:none;border:0;color:#c94b4b;cursor:pointer;" onclick="removeItem(${index})">✕</button></td>
+    `;
+    tbody.appendChild(tr);
+  });
+  updatePreview();
+}
+
+window.addItem = () => { items.push({ desc: "", qty: 1, price: 0 }); renderItems(); };
+window.removeItem = (i) => { items.splice(i, 1); renderItems(); };
+window.updateItem = (i, field, val) => { items[i][field] = field === 'qty' || field === 'price' ? parseFloat(val)||0 : val; updatePreview(); };
+
+function getData() {
+  return {
+    fromName: document.getElementById('fromName').value,
+    fromAddress: document.getElementById('fromAddress').value,
+    fromEmail: document.getElementById('fromEmail').value,
+    toName: document.getElementById('toName').value,
+    toAddress: document.getElementById('toAddress').value,
+    invNumber: document.getElementById('invNumber').value,
+    invDate: document.getElementById('invDate').value,
+    items: items,
+    total: items.reduce((sum, item) => sum + (item.qty * item.price), 0)
+  };
+}
+
+function formatEuro(n) { return n.toFixed(2).replace('.', ',') + ' €'; }
+
+function updatePreview() {
+  const data = getData();
+  document.getElementById('previewTotal').textContent = formatEuro(data.total);
+  const dateStr = new Date(data.invDate).toLocaleDateString('fr-FR');
+  
+  let itemsHtml = data.items.map(it => `
+    <tr>
+      <td>${it.desc || '...'}</td>
+      <td class="text-right">${it.qty}</td>
+      <td class="text-right">${formatEuro(it.price)}</td>
+      <td class="text-right">${formatEuro(it.qty * it.price)}</td>
+    </tr>
+  `).join('');
+
+  document.getElementById('preview').innerHTML = `
+    <div class="pv-header">
+      <div>
+        <p class="pv-title">FACTURE</p>
+        <p class="pv-info">N° ${data.invNumber}<br>Date : ${dateStr}</p>
+      </div>
+      <div style="text-align:right;">
+        <p class="pv-info"><strong>${data.fromName}</strong><br>${data.fromAddress.replace(/\n/g, '<br>')}<br>${data.fromEmail}</p>
+      </div>
+    </div>
+    <div class="pv-client">
+      <p class="pv-info" style="margin-bottom:5px; color:#777;">FACTURÉ À :</p>
+      <p class="pv-info"><strong>${data.toName}</strong><br>${data.toAddress.replace(/\n/g, '<br>')}</p>
+    </div>
+    <table class="pv-table">
+      <thead><tr><th>Description</th><th class="text-right">Qté</th><th class="text-right">Prix Unit.</th><th class="text-right">Total</th></tr></thead>
+      <tbody>${itemsHtml}</tbody>
+    </table>
+    <div class="pv-total">TOTAL À PAYER <span>${formatEuro(data.total)}</span></div>
+    <p style="font-size:10px;color:#888;margin-top:40px;text-align:center;">Facture générée avec FacturePro</p>
+  `;
+}
+
+renderItems();
+
+// --- GENERATION DU PDF (ULTRA ROBUSTE) ---
+document.getElementById('downloadBtn').onclick = async () => {
+  // On vérifie que la librairie est chargée. Si ce n'est pas le cas, on attend 1 seconde.
+  if (typeof PDFLib === 'undefined') {
+    document.getElementById('downloadBtn').textContent = "Chargement...";
+    setTimeout(() => document.getElementById('downloadBtn').click(), 1000);
+    return;
+  }
+  
+  const btn = document.getElementById('downloadBtn');
+  btn.disabled = true;
+  btn.textContent = "Création du PDF...";
+
+  try {
+    const data = getData();
+    const doc = await PDFLib.PDFDocument.create();
+    const font = await doc.embedFont(PDFLib.StandardFonts.Helvetica);
+    const fontBold = await doc.embedFont(PDFLib.StandardFonts.HelveticaBold);
+    
+    const page = doc.addPage([595, 842]); // Format A4
+    const { width, height } = page.getSize();
+    const margin = 50;
+    let y = height - margin;
+
+    // Fonction pour dessiner du texte proprement
+    const drawText = (text, x, yPos, size, isBold = false, color) => {
+      page.drawText(text, { 
+        x, y: yPos, size, 
+        font: isBold ? fontBold : font, 
+        color: color || PDFLib.rgb(0, 0, 0) 
+      });
+    };
+
+    // En-tête
+    drawText("FACTURE", margin, y - 20, 24, true);
+    drawText(`N° ${data.invNumber || 'Sans numéro'}`, margin, y - 40, 10);
+    drawText(`Date : ${new Date(data.invDate).toLocaleDateString('fr-FR')}`, margin, y - 55, 10);
+
+    // Infos émetteur
+    const fromLines = data.fromAddress.split('\n');
+    drawText(data.fromName, width - margin - 150, y - 20, 10, true);
+    fromLines.forEach((line, i) => drawText(line, width - margin - 150, y - 35 - (i * 12), 9));
+    drawText(data.fromEmail, width - margin - 150, y - 35 - (fromLines.length * 12), 9);
+
+    y -= 100;
+
+    // Infos client
+    drawText("FACTURÉ À :", margin, y, 9, false, PDFLib.rgb(0.4, 0.4, 0.4));
+    drawText(data.toName, margin, y - 15, 11, true);
+    const toLines = data.toAddress.split('\n');
+    toLines.forEach((line, i) => drawText(line, margin, y - 30 - (i * 12), 10));
+
+    y -= 80;
+
+    // Tableau
+    page.drawLine({ start: { x: margin, y }, end: { x: width - margin, y }, thickness: 1, color: PDFLib.rgb(0.8, 0.8, 0.8) });
+    drawText("Description", margin, y - 15, 10, true);
+    drawText("Qté", width - margin - 150, y - 15, 10, true);
+    drawText("Prix", width - margin - 100, y - 15, 10, true);
+    drawText("Total", width - margin - 40, y - 15, 10, true);
+    y -= 25;
+
+    data.items.forEach(item => {
+      page.drawLine({ start: { x: margin, y }, end: { x: width - margin, y }, thickness: 0.5, color: PDFLib.rgb(0.9, 0.9, 0.9) });
+      drawText(item.desc.substring(0, 50), margin, y - 15, 10);
+      drawText(item.qty.toString(), width - margin - 150, y - 15, 10);
+      drawText(formatEuro(item.price), width - margin - 100, y - 15, 10);
+      drawText(formatEuro(item.qty * item.price), width - margin - 40, y - 15, 10);
+      y -= 20;
+    });
+
+    // Total
+    y -= 20;
+    drawText("TOTAL À PAYER", width - margin - 150, y, 12, true);
+    drawText(formatEuro(data.total), width - margin - 60, y, 14, true, PDFLib.rgb(0.36, 0.36, 0.89));
+
+    drawText("Facture générée avec FacturePro", width / 2 - 60, 30, 8, false, PDFLib.rgb(0.6, 0.6, 0.6));
+
+    // Téléchargement
+    const pdfBytes = await doc.save();
+    const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `Facture-${data.invNumber || 'sans-numero'}.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+  } catch (err) {
+    console.error(err);
+    alert("Une erreur est survenue. Vérifiez que vous avez bien rempli les champs.");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Télécharger la facture en PDF";
+  }
+};
+</script>
+</body>
+</html>
