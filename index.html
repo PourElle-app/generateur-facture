@@ -251,10 +251,22 @@ document.getElementById('downloadBtn').onclick = async () => {
       y -= 20;
     });
 
-    // Total
+        // Total
     y -= 20;
-    drawText("TOTAL À PAYER", width - margin - 300, y, 12, true);
-    drawText(formatEuro(data.total), width - margin - 80, y, 14, true, PDFLib.rgb(0.36, 0.36, 0.89));
+    // On prépare les textes
+    const labelTotal = "TOTAL À PAYER";
+    const valueTotal = formatEuro(data.total);
+    
+    // On calcule la largeur exacte du prix pour le coller parfaitement à droite
+    const valueWidth = fontBold.widthOfTextAtSize(valueTotal, 14);
+    const xValue = width - margin - valueWidth; // Position du prix (collé à droite)
+    
+    // On dessine le prix (bleu)
+    drawText(valueTotal, xValue, y, 14, true, PDFLib.rgb(0.36, 0.36, 0.89));
+    
+    // On dessine le texte "TOTAL À PAYER" (noir) en laissant 15px d'espace avant le prix
+    const xLabel = xValue - 15 - fontBold.widthOfTextAtSize(labelTotal, 12);
+    drawText(labelTotal, xLabel, y, 12, true);
 
     drawText("Facture générée avec FacturePro", width / 2 - 60, 30, 8, false, PDFLib.rgb(0.6, 0.6, 0.6));
 
