@@ -4,15 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Créateur de Facture Gratuit en Ligne – Modèle PDF Freelance</title>
-<meta name="description" content="Créez et téléchargez vos factures gratuitement. Modèle professionnel pour freelances et auto-entrepreneurs. Sans inscription, 100% dans votre navigateur.">
+<title>Créateur de Facture Gratuit – Modèle PDF Freelance</title>
+<meta name="description" content="Créez et téléchargez vos factures gratuitement. Modèle professionnel multilingue (FR, EN, ES, PT). 100% dans votre navigateur.">
 
 <style>
 :root{--ink:#17233b;--muted:#66758b;--blue:#5b5ce2;--line:#e5e9f2;}
 *{box-sizing:border-box}
 body{margin:0;color:var(--ink);font:14px/1.5 Inter,system-ui,sans-serif;background:#fff;}
-.top{display:flex;align-items:center;justify-content:center;padding:20px;font-weight:850;font-size:20px;border-bottom:1px solid var(--line);background:#fff;}
+.top{display:flex;justify-content:space-between;align-items:center;padding:15px 30px;border-bottom:1px solid var(--line);background:#fff;}
+.brand{display:flex;align-items:center;font-weight:850;font-size:20px;}
 .brandmark{width:32px;height:32px;border-radius:10px;background:linear-gradient(145deg,#7258e8,#4f76ee);display:grid;place-items:center;color:#fff;font-weight:900;font-size:14px;margin-right:10px;}
+select.lang-select{padding:8px;border:1px solid var(--line);border-radius:8px;font-weight:600;cursor:pointer;background:#f8fafc;outline:none;}
 .container{max-width:1000px;margin:30px auto;padding:0 20px;display:grid;grid-template-columns:1fr 1fr;gap:30px;}
 @media(max-width:800px){.container{grid-template-columns:1fr;}}
 h1{font-size:32px;letter-spacing:-1px;margin:0 0 10px;}
@@ -49,45 +51,53 @@ p.subtitle{color:var(--muted);font-size:15px;margin:0 0 25px;}
 </head>
 <body>
 
-<div class="top"><div class="brandmark">F</div> FacturePro</div>
+<div class="top">
+  <div class="brand"><div class="brandmark">F</div> FacturePro</div>
+  <select class="lang-select" id="langSelect" onchange="changeLang(this.value)">
+    <option value="fr">🇫🇷 Français</option>
+    <option value="en">🇬🇧 English</option>
+    <option value="es">🇪🇸 Español</option>
+    <option value="pt">🇧🇷 Português</option>
+  </select>
+</div>
 
 <div class="container">
   <div>
-    <h1>Créez votre facture</h1>
-    <p class="subtitle">Remplissez les champs à gauche, l'aperçu se met à jour en direct. Téléchargez en PDF à la fin.</p>
+    <h1 id="t_title">Créez votre facture</h1>
+    <p class="subtitle" id="t_subtitle">Remplissez les champs à gauche, l'aperçu se met à jour en direct.</p>
 
     <div class="card">
-      <h2>Vos informations</h2>
-      <div class="form-group"><label>Votre Nom / Entreprise</label><input type="text" id="fromName" value="Jean Dupont" oninput="updatePreview()"></div>
-      <div class="form-group"><label>Votre Adresse</label><textarea id="fromAddress" rows="2" oninput="updatePreview()">12 rue de la Paix
+      <h2 id="t_your_info">Vos informations</h2>
+      <div class="form-group"><label id="t_your_name">Votre Nom / Entreprise</label><input type="text" id="fromName" value="Jean Dupont" oninput="updatePreview()"></div>
+      <div class="form-group"><label id="t_your_address">Votre Adresse</label><textarea id="fromAddress" rows="2" oninput="updatePreview()">12 rue de la Paix
 75000 Paris</textarea></div>
-      <div class="form-group"><label>Votre Email / Siret</label><input type="text" id="fromEmail" value="jean@exemple.fr" oninput="updatePreview()"></div>
+      <div class="form-group"><label id="t_your_email">Votre Email / Siret</label><input type="text" id="fromEmail" value="jean@exemple.fr" oninput="updatePreview()"></div>
     </div>
 
     <div class="card" style="margin-top:15px;">
-      <h2>Informations Client</h2>
-      <div class="form-group"><label>Nom du client</label><input type="text" id="toName" value="Entreprise ABC" oninput="updatePreview()"></div>
-      <div class="form-group"><label>Adresse du client</label><textarea id="toAddress" rows="2" oninput="updatePreview()">45 avenue des Champs
+      <h2 id="t_client_info">Informations Client</h2>
+      <div class="form-group"><label id="t_client_name">Nom du client</label><input type="text" id="toName" value="Entreprise ABC" oninput="updatePreview()"></div>
+      <div class="form-group"><label id="t_client_address">Adresse du client</label><textarea id="toAddress" rows="2" oninput="updatePreview()">45 avenue des Champs
 75008 Paris</textarea></div>
     </div>
 
     <div class="card" style="margin-top:15px;">
-      <h2>Détails de la facture</h2>
-      <div class="form-group"><label>Numéro de facture</label><input type="text" id="invNumber" value="FAC-2026-001" oninput="updatePreview()"></div>
-      <div class="form-group"><label>Date</label><input type="date" id="invDate" oninput="updatePreview()"></div>
+      <h2 id="t_details">Détails de la facture</h2>
+      <div class="form-group"><label id="t_inv_number">Numéro de facture</label><input type="text" id="invNumber" value="FAC-2026-001" oninput="updatePreview()"></div>
+      <div class="form-group"><label id="t_date">Date</label><input type="date" id="invDate" oninput="updatePreview()"></div>
       
       <table class="items-table" id="itemsTable">
         <thead>
-          <tr><th>Description</th><th width="60">Qté</th><th width="80">Prix</th><th width="30"></th></tr>
+          <tr><th id="t_desc">Description</th><th id="t_qty" width="60">Qté</th><th id="t_price" width="80">Prix</th><th width="30"></th></tr>
         </thead>
         <tbody id="itemsBody"></tbody>
       </table>
-      <button type="button" onclick="addItem()" style="background:none;border:0;color:var(--blue);font-weight:700;cursor:pointer;font-size:12px;margin-bottom:15px;">+ Ajouter une ligne</button>
+      <button type="button" id="t_add_item" onclick="addItem()" style="background:none;border:0;color:var(--blue);font-weight:700;cursor:pointer;font-size:12px;margin-bottom:15px;">+ Ajouter une ligne</button>
 
-      <div class="total-row">Total : <strong id="previewTotal">0,00 €</strong></div>
+      <div class="total-row"><span id="t_total">Total :</span> <strong id="previewTotal">0,00 €</strong></div>
     </div>
 
-    <button class="primary" id="downloadBtn" style="margin-top:20px;">Télécharger la facture en PDF</button>
+    <button class="primary" id="downloadBtn" style="margin-top:20px;" onclick="generatePDF()">Télécharger la facture en PDF</button>
   </div>
 
   <div>
@@ -95,15 +105,83 @@ p.subtitle{color:var(--muted);font-size:15px;margin:0 0 25px;}
   </div>
 </div>
 
-<!-- Chargement de la bibliothèque PDF -->
 <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
 <script>
-document.getElementById('invDate').valueAsDate = new Date();
+// --- TRADUCTIONS ---
+const dict = {
+  fr: {
+    title: "Créez votre facture", subtitle: "Remplissez les champs à gauche, l'aperçu se met à jour en direct.",
+    your_info: "Vos informations", your_name: "Votre Nom / Entreprise", your_address: "Votre Adresse", your_email: "Votre Email / Siret",
+    client_info: "Informations Client", client_name: "Nom du client", client_address: "Adresse du client",
+    details: "Détails de la facture", inv_number: "Numéro de facture", date: "Date",
+    desc: "Description", qty: "Qté", price: "Prix", add_item: "+ Ajouter une ligne", total: "Total :",
+    download: "Télécharger la facture en PDF", loading: "Création du PDF...",
+    invoice: "FACTURE", billed_to: "FACTURÉ À :", total_pay: "TOTAL À PAYER", footer: "Facture générée avec FacturePro"
+  },
+  en: {
+    title: "Create your invoice", subtitle: "Fill in the fields, the preview updates in real-time.",
+    your_info: "Your information", your_name: "Your Name / Company", your_address: "Your Address", your_email: "Your Email / ID",
+    client_info: "Client information", client_name: "Client name", client_address: "Client address",
+    details: "Invoice details", inv_number: "Invoice number", date: "Date",
+    desc: "Description", qty: "Qty", price: "Price", add_item: "+ Add a line", total: "Total:",
+    download: "Download invoice in PDF", loading: "Creating PDF...",
+    invoice: "INVOICE", billed_to: "BILLED TO:", total_pay: "TOTAL TO PAY", footer: "Invoice generated with FacturePro"
+  },
+  es: {
+    title: "Crea tu factura", subtitle: "Completa los campos, la vista previa se actualiza en tiempo real.",
+    your_info: "Tu información", your_name: "Tu Nombre / Empresa", your_address: "Tu Dirección", your_email: "Tu Email / ID",
+    client_info: "Información del cliente", client_name: "Nombre del cliente", client_address: "Dirección del cliente",
+    details: "Detalles de la factura", inv_number: "Número de factura", date: "Fecha",
+    desc: "Descripción", qty: "Cant", price: "Precio", add_item: "+ Añadir línea", total: "Total:",
+    download: "Descargar factura en PDF", loading: "Creando PDF...",
+    invoice: "FACTURA", billed_to: "FACTURADO A:", total_pay: "TOTAL A PAGAR", footer: "Factura generada con FacturePro"
+  },
+  pt: {
+    title: "Crie sua fatura", subtitle: "Preencha os campos, a pré-visualização é atualizada em tempo real.",
+    your_info: "Suas informações", your_name: "Seu Nome / Empresa", your_address: "Seu Endereço", your_email: "Seu Email / ID",
+    client_info: "Informações do cliente", client_name: "Nome do cliente", client_address: "Endereço do cliente",
+    details: "Detalhes da fatura", inv_number: "Número da fatura", date: "Data",
+    desc: "Descrição", qty: "Qtd", price: "Preço", add_item: "+ Adicionar linha", total: "Total:",
+    download: "Baixar fatura em PDF", loading: "Criando PDF...",
+    invoice: "FATURA", billed_to: "FATURADO PARA:", total_pay: "TOTAL A PAGAR", footer: "Fatura gerada com FacturePro"
+  }
+};
 
+let currentLang = 'fr';
 let items = [
   { desc: "Création de site web", qty: 1, price: 500 },
   { desc: "Maintenance mensuelle", qty: 1, price: 50 }
 ];
+
+// --- GESTION LANGUE ---
+window.changeLang = function(lang) {
+  currentLang = lang;
+  const t = dict[lang];
+  // Mise à jour des textes
+  document.getElementById('t_title').textContent = t.title;
+  document.getElementById('t_subtitle').textContent = t.subtitle;
+  document.getElementById('t_your_info').textContent = t.your_info;
+  document.getElementById('t_your_name').textContent = t.your_name;
+  document.getElementById('t_your_address').textContent = t.your_address;
+  document.getElementById('t_your_email').textContent = t.your_email;
+  document.getElementById('t_client_info').textContent = t.client_info;
+  document.getElementById('t_client_name').textContent = t.client_name;
+  document.getElementById('t_client_address').textContent = t.client_address;
+  document.getElementById('t_details').textContent = t.details;
+  document.getElementById('t_inv_number').textContent = t.inv_number;
+  document.getElementById('t_date').textContent = t.date;
+  document.getElementById('t_desc').textContent = t.desc;
+  document.getElementById('t_qty').textContent = t.qty;
+  document.getElementById('t_price').textContent = t.price;
+  document.getElementById('t_add_item').textContent = t.add_item;
+  document.getElementById('t_total').textContent = t.total;
+  document.getElementById('downloadBtn').textContent = t.download;
+  
+  updatePreview();
+};
+
+// --- LOGIQUE ---
+document.getElementById('invDate').valueAsDate = new Date();
 
 function renderItems() {
   const tbody = document.getElementById('itemsBody');
@@ -139,12 +217,20 @@ function getData() {
   };
 }
 
-function formatEuro(n) { return n.toFixed(2).replace('.', ',') + ' €'; }
+function formatEuro(n) { 
+  if(currentLang === 'en') return n.toFixed(2) + ' €';
+  if(currentLang === 'pt' || currentLang === 'es') return n.toFixed(2).replace('.', ',') + ' €';
+  return n.toFixed(2).replace('.', ',') + ' €'; 
+}
 
 function updatePreview() {
   const data = getData();
+  const t = dict[currentLang];
   document.getElementById('previewTotal').textContent = formatEuro(data.total);
-  const dateStr = new Date(data.invDate).toLocaleDateString('fr-FR');
+  
+  // Date formatting according to language
+  const dateObj = new Date(data.invDate);
+  const dateStr = dateObj.toLocaleDateString(currentLang === 'en' ? 'en-US' : currentLang);
   
   let itemsHtml = data.items.map(it => `
     <tr>
@@ -158,53 +244,50 @@ function updatePreview() {
   document.getElementById('preview').innerHTML = `
     <div class="pv-header">
       <div>
-        <p class="pv-title">FACTURE</p>
-        <p class="pv-info">N° ${data.invNumber}<br>Date : ${dateStr}</p>
+        <p class="pv-title">${t.invoice}</p>
+        <p class="pv-info">N° ${data.invNumber}<br>${t.date} : ${dateStr}</p>
       </div>
       <div style="text-align:right;">
         <p class="pv-info"><strong>${data.fromName}</strong><br>${data.fromAddress.replace(/\n/g, '<br>')}<br>${data.fromEmail}</p>
       </div>
     </div>
     <div class="pv-client">
-      <p class="pv-info" style="margin-bottom:5px; color:#777;">FACTURÉ À :</p>
+      <p class="pv-info" style="margin-bottom:5px; color:#777;">${t.billed_to}</p>
       <p class="pv-info"><strong>${data.toName}</strong><br>${data.toAddress.replace(/\n/g, '<br>')}</p>
     </div>
     <table class="pv-table">
-      <thead><tr><th>Description</th><th class="text-right">Qté</th><th class="text-right">Prix Unit.</th><th class="text-right">Total</th></tr></thead>
+      <thead><tr><th>${t.desc}</th><th class="text-right">${t.qty}</th><th class="text-right">${t.price}</th><th class="text-right">${t.total}</th></tr></thead>
       <tbody>${itemsHtml}</tbody>
     </table>
-    <div class="pv-total">TOTAL À PAYER <span>${formatEuro(data.total)}</span></div>
-    <p style="font-size:10px;color:#888;margin-top:40px;text-align:center;">Facture générée avec FacturePro</p>
+    <div class="pv-total">${t.total_pay} <span>${formatEuro(data.total)}</span></div>
+    <p style="font-size:10px;color:#888;margin-top:40px;text-align:center;">${t.footer}</p>
   `;
 }
 
-renderItems();
-
-// --- GENERATION DU PDF (ULTRA ROBUSTE) ---
-document.getElementById('downloadBtn').onclick = async () => {
-  // On vérifie que la librairie est chargée. Si ce n'est pas le cas, on attend 1 seconde.
+// --- GENERATION DU PDF MULTILINGUE ---
+window.generatePDF = async function() {
   if (typeof PDFLib === 'undefined') {
     document.getElementById('downloadBtn').textContent = "Chargement...";
-    setTimeout(() => document.getElementById('downloadBtn').click(), 1000);
+    setTimeout(window.generatePDF, 1000);
     return;
   }
   
   const btn = document.getElementById('downloadBtn');
   btn.disabled = true;
-  btn.textContent = "Création du PDF...";
+  btn.textContent = dict[currentLang].loading;
 
   try {
     const data = getData();
+    const t = dict[currentLang];
     const doc = await PDFLib.PDFDocument.create();
     const font = await doc.embedFont(PDFLib.StandardFonts.Helvetica);
     const fontBold = await doc.embedFont(PDFLib.StandardFonts.HelveticaBold);
     
-    const page = doc.addPage([595, 842]); // Format A4
+    const page = doc.addPage([595, 842]);
     const { width, height } = page.getSize();
     const margin = 50;
     let y = height - margin;
 
-    // Fonction pour dessiner du texte proprement
     const drawText = (text, x, yPos, size, isBold = false, color) => {
       page.drawText(text, { 
         x, y: yPos, size, 
@@ -214,11 +297,13 @@ document.getElementById('downloadBtn').onclick = async () => {
     };
 
     // En-tête
-    drawText("FACTURE", margin, y - 20, 24, true);
-    drawText(`N° ${data.invNumber || 'Sans numéro'}`, margin, y - 40, 10);
-    drawText(`Date : ${new Date(data.invDate).toLocaleDateString('fr-FR')}`, margin, y - 55, 10);
+    drawText(t.invoice, margin, y - 20, 24, true);
+    drawText(`N° ${data.invNumber || '-'}`, margin, y - 40, 10);
+    const dateObj = new Date(data.invDate);
+    const dateStr = dateObj.toLocaleDateString(currentLang === 'en' ? 'en-US' : currentLang);
+    drawText(`${t.date} : ${dateStr}`, margin, y - 55, 10);
 
-    // Infos émetteur
+    // Émetteur
     const fromLines = data.fromAddress.split('\n');
     drawText(data.fromName, width - margin - 150, y - 20, 10, true);
     fromLines.forEach((line, i) => drawText(line, width - margin - 150, y - 35 - (i * 12), 9));
@@ -226,8 +311,8 @@ document.getElementById('downloadBtn').onclick = async () => {
 
     y -= 100;
 
-    // Infos client
-    drawText("FACTURÉ À :", margin, y, 9, false, PDFLib.rgb(0.4, 0.4, 0.4));
+    // Client
+    drawText(t.billed_to, margin, y, 9, false, PDFLib.rgb(0.4, 0.4, 0.4));
     drawText(data.toName, margin, y - 15, 11, true);
     const toLines = data.toAddress.split('\n');
     toLines.forEach((line, i) => drawText(line, margin, y - 30 - (i * 12), 10));
@@ -236,10 +321,10 @@ document.getElementById('downloadBtn').onclick = async () => {
 
     // Tableau
     page.drawLine({ start: { x: margin, y }, end: { x: width - margin, y }, thickness: 1, color: PDFLib.rgb(0.8, 0.8, 0.8) });
-    drawText("Description", margin, y - 15, 10, true);
-    drawText("Qté", width - margin - 150, y - 15, 10, true);
-    drawText("Prix", width - margin - 100, y - 15, 10, true);
-    drawText("Total", width - margin - 40, y - 15, 10, true);
+    drawText(t.desc, margin, y - 15, 10, true);
+    drawText(t.qty, width - margin - 150, y - 15, 10, true);
+    drawText(t.price, width - margin - 100, y - 15, 10, true);
+    drawText(t.total, width - margin - 40, y - 15, 10, true);
     y -= 25;
 
     data.items.forEach(item => {
@@ -251,24 +336,20 @@ document.getElementById('downloadBtn').onclick = async () => {
       y -= 20;
     });
 
-        // Total
+    // Total (Le code corrigé pour l'alignement parfait)
     y -= 20;
-    // On prépare les textes
-    const labelTotal = "TOTAL À PAYER";
+    const labelTotal = t.total_pay;
     const valueTotal = formatEuro(data.total);
     
-    // On calcule la largeur exacte du prix pour le coller parfaitement à droite
     const valueWidth = fontBold.widthOfTextAtSize(valueTotal, 14);
-    const xValue = width - margin - valueWidth; // Position du prix (collé à droite)
+    const xValue = width - margin - valueWidth;
     
-    // On dessine le prix (bleu)
     drawText(valueTotal, xValue, y, 14, true, PDFLib.rgb(0.36, 0.36, 0.89));
     
-    // On dessine le texte "TOTAL À PAYER" (noir) en laissant 15px d'espace avant le prix
     const xLabel = xValue - 15 - fontBold.widthOfTextAtSize(labelTotal, 12);
     drawText(labelTotal, xLabel, y, 12, true);
 
-    drawText("Facture générée avec FacturePro", width / 2 - 60, 30, 8, false, PDFLib.rgb(0.6, 0.6, 0.6));
+    drawText(t.footer, width / 2 - 60, 30, 8, false, PDFLib.rgb(0.6, 0.6, 0.6));
 
     // Téléchargement
     const pdfBytes = await doc.save();
@@ -276,7 +357,7 @@ document.getElementById('downloadBtn').onclick = async () => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `Facture-${data.invNumber || 'sans-numero'}.pdf`;
+    a.download = `Invoice-${data.invNumber || 'sans-numero'}-${currentLang}.pdf`;
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -284,12 +365,16 @@ document.getElementById('downloadBtn').onclick = async () => {
 
   } catch (err) {
     console.error(err);
-    alert("Une erreur est survenue. Vérifiez que vous avez bien rempli les champs.");
+    alert("Une erreur est survenue lors de la création du PDF.");
   } finally {
     btn.disabled = false;
-    btn.textContent = "Télécharger la facture en PDF";
+    btn.textContent = dict[currentLang].download;
   }
 };
+
+// Initialisation
+renderItems();
+changeLang('fr');
 </script>
 </body>
 </html>
