@@ -253,8 +253,8 @@ document.getElementById('downloadBtn').onclick = async () => {
 
     // Total
     y -= 20;
-    drawText("TOTAL À PAYER", width - margin - 200, y, 12, true);
-    drawText(formatEuro(data.total), width - margin - 60, y, 14, true, PDFLib.rgb(0.36, 0.36, 0.89));
+    drawText("TOTAL À PAYER", width - margin - 300, y, 12, true);
+    drawText(formatEuro(data.total), width - margin - 80, y, 14, true, PDFLib.rgb(0.36, 0.36, 0.89));
 
     drawText("Facture générée avec FacturePro", width / 2 - 60, 30, 8, false, PDFLib.rgb(0.6, 0.6, 0.6));
 
